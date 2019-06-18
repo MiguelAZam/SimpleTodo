@@ -1,6 +1,7 @@
 package app.simpletodo;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,6 +80,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, EDIT_REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == EDIT_REQUEST_CODE){
+            String updateItem = data.getExtras().getString(ITEM_TEXT);
+            int position = data.getExtras().getInt(ITEM_POSITION);
+            items.set(position, updateItem);
+            itemsAdapter.notifyDataSetChanged();
+            writeItems();
+
+            Toast.makeText(this, "Item updated successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public File getDataFile(){

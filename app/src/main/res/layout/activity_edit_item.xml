@@ -30,6 +30,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="Save"
+        android:onClick="onSaveItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_item_description" />
 </android.support.constraint.ConstraintLayout>
