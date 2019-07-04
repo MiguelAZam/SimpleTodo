@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Keys used for passing data between activities
     public final static String TITLE = "activityTitle";
-    public final static String ITEM_TEXT = "itemText";
-    public final static String ITEM_POSITION = "itemPosition";
+    public final static String BUTTON = "buttonText";
 
     RecyclerView rv_todos;
 
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public void createTodo(View v){
         Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
         intent.putExtra(TITLE, "Create Todo");
+        intent.putExtra(BUTTON, "Create");
         startActivityForResult(intent, CREATE_REQUEST_CODE);
     }
 
