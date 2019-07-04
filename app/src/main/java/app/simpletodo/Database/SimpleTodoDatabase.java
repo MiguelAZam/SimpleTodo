@@ -7,6 +7,7 @@ import android.content.Context;
 
 import app.simpletodo.Models.Todo;
 
+//Singleton class to connect to the database
 @Database(entities = {Todo.class}, version = 1, exportSchema = false)
 public abstract class SimpleTodoDatabase extends RoomDatabase {
 

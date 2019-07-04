@@ -19,22 +19,27 @@ public class TodoViewModel extends AndroidViewModel {
         todos = todosRepo.getTodos();
     }
 
+    //Get list of tod-os in the database
     public LiveData<List<Todo>> getTodos(){
         return todos;
     }
 
+    //Get to-do based in given position
     public Todo getTodo(int position){
         return todos.getValue().get(position);
     }
 
+    //Insert to-do in the database
     public void insertTodo(Todo todo){
         todosRepo.insert(todo);
     }
 
+    //Update to-do in the database
     public void updateTodo(Todo todo){
         todosRepo.update(todo);
     }
 
+    //Delete to-do from the database
     public void deleteTodo(Todo todo){
         todosRepo.delete(todo);
     }

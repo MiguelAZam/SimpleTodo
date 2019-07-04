@@ -5,6 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
+//Class to model To-do object
 @Entity(tableName = "Todos")
 public class Todo implements Serializable {
 

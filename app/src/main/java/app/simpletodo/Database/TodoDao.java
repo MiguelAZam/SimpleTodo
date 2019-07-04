@@ -11,6 +11,7 @@ import java.util.List;
 
 import app.simpletodo.Models.Todo;
 
+//DAO of queries to perform in the database
 @Dao
 public interface TodoDao {
 
