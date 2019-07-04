@@ -1,8 +1,11 @@
 package app.simpletodo.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +15,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import app.simpletodo.Database.TodoViewModel;
+import app.simpletodo.EditItemActivity;
 import app.simpletodo.Models.Todo;
 import app.simpletodo.R;
+
+import static app.simpletodo.MainActivity.BUTTON;
+import static app.simpletodo.MainActivity.EDIT_REQUEST_CODE;
+import static app.simpletodo.MainActivity.TITLE;
+import static app.simpletodo.MainActivity.TODO;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder> {
 
@@ -58,6 +68,20 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
         holder.tv_title.setText(todo.getTitle());
         holder.tv_dueDate.setText(todo.getDueDate());
         holder.iv_done.setImageResource(getTodoState(todo.isCompleted()));
+
+        holder.card.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, EditItemActivity.class);
+            intent.putExtra(TITLE, "Edit Todo");
+            intent.putExtra(BUTTON, "Update");
+            intent.putExtra(TODO, todo);
+            ((Activity) mContext).startActivityForResult(intent, EDIT_REQUEST_CODE);
+        });
+
+        holder.card.setOnLongClickListener(view -> {
+            todo.setCompleted(!todo.isCompleted());
+            new TodoViewModel(((Activity) mContext).getApplication()).updateTodo(todo);
+            return true;
+        });
     }
 
     @Override
@@ -67,6 +91,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
     class TodoViewHolder extends RecyclerView.ViewHolder{
 
+        CardView card;
         View v_priority_label;
         TextView tv_title;
         TextView tv_dueDate;
@@ -74,6 +99,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder
 
         TodoViewHolder(View view){
             super(view);
+            card = view.findViewById(R.id.cv_todo);
             v_priority_label = view.findViewById(R.id.v_priority_label);
             tv_title = view.findViewById(R.id.tv_title);
             tv_dueDate = view.findViewById(R.id.tv_dueDate);

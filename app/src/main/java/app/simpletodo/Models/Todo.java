@@ -16,12 +16,12 @@ public class Todo implements Serializable {
     private String dueDate;
     private boolean isCompleted;
 
-    public Todo(String title, String description, int priority, String dueDate, boolean isCompleted){
+    public Todo(String title, String description, int priority, String dueDate){
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.dueDate = dueDate;
-        this.isCompleted = isCompleted;
+        this.isCompleted = false;
     }
 
     public int getId() {
@@ -36,19 +36,39 @@ public class Todo implements Serializable {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getPriority() {
         return priority;
     }
 
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     public String getDueDate() {
         return dueDate;
     }
 
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }

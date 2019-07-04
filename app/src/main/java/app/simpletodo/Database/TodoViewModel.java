@@ -23,6 +23,10 @@ public class TodoViewModel extends AndroidViewModel {
         return todos;
     }
 
+    public Todo getTodo(int position){
+        return todos.getValue().get(position);
+    }
+
     public void insertTodo(Todo todo){
         todosRepo.insert(todo);
     }
