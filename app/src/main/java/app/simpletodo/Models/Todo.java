@@ -4,14 +4,16 @@ public class Todo {
 
     private String title;
     private String description;
-    private String priority;
+    private int priority;
     private String dueDate;
+    private boolean isCompleted;
 
-    public Todo(String title, String description, String priority, String dueDate){
+    public Todo(String title, String description, int priority, String dueDate, boolean isCompleted){
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.dueDate = dueDate;
+        this.isCompleted = isCompleted;
     }
 
     public String getTitle() {
@@ -22,11 +24,15 @@ public class Todo {
         return description;
     }
 
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 
     public String getDueDate() {
         return dueDate;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
     }
 }
