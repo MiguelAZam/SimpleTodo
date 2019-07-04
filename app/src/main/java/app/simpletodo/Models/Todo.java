@@ -1,7 +1,15 @@
 package app.simpletodo.Models;
 
-public class Todo {
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
+@Entity(tableName = "Todos")
+public class Todo implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String title;
     private String description;
     private int priority;
@@ -14,6 +22,14 @@ public class Todo {
         this.priority = priority;
         this.dueDate = dueDate;
         this.isCompleted = isCompleted;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getTitle() {

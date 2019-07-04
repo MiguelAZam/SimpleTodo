@@ -15,8 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        app:layout_anchorGravity="bottom|right|end"
         android:layout_margin="16dp"
         android:src="@drawable/add_24dp"
         app:layout_anchor="@id/rv_todos"
-        app:layout_anchorGravity="bottom|right|end" />
+        android:onClick="createTodo"/>
 </android.support.design.widget.CoordinatorLayout>

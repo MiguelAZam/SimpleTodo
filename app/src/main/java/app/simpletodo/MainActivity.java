@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.simpletodo.Adapters.TodoAdapter;
+import app.simpletodo.Database.TodoViewModel;
 import app.simpletodo.Models.Todo;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
     public final static int EDIT_REQUEST_CODE = 20;
 
     //Keys used for passing data between activities
+    public final static String TITLE = "activityTitle";
     public final static String ITEM_TEXT = "itemText";
     public final static String ITEM_POSITION = "itemPosition";
 
     RecyclerView rv_todos;
 
-    ArrayList<String> items;
-    ArrayAdapter<String> itemsAdapter;
+    private static TodoViewModel todoViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         rv_todos = findViewById(R.id.rv_todos);
 
-        List<Todo> todoList = new ArrayList<>();
-        todoList.add(new Todo("Clean dishes", "", 0, "25/06/2019", false));
-        todoList.add(new Todo("Finish app", "", 1, "29/06/2019", true));
-        todoList.add(new Todo("Finish assignment of spanish", "", 2, "04/07/2019", false));
-
-        setRecyclerView(todoList);
+        setDatabaseObserver();
 
     }
 
@@ -63,10 +59,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setDatabaseObserver(){
+        todoViewModel = new TodoViewModel(getApplication());
+        todoViewModel.getTodos().observe(this, todos -> {
+            Log.d("Main Activity", "Getting Todos");
+            setRecyclerView(todos);
+        });
+    }
+
+    public void createTodo(View v){
+        Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
+        intent.putExtra(TITLE, "Create Todo");
+        startActivityForResult(intent, CREATE_REQUEST_CODE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if(resultCode == RESULT_OK && requestCode == EDIT_REQUEST_CODE){
+        /*if(resultCode == RESULT_OK && requestCode == CREATE_REQUEST_CODE){
+
+        } else if(resultCode == RESULT_OK && requestCode == EDIT_REQUEST_CODE){
             String updateItem = data.getExtras().getString(ITEM_TEXT);
             int position = data.getExtras().getInt(ITEM_POSITION);
             items.set(position, updateItem);
